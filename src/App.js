@@ -5,11 +5,91 @@ import AllSneakers from './pages/AllSneakers/AllSneakers';
 import MyBookmarks from './pages/MyBookmarks/MyBookmarks';
 import MyOrders from './pages/MyOrders/MyOrders';
 
+
+export let AppContext = React.createContext({
+
+})
+
+
 function App() {
-  
+  // sneaker_json
+  // [
+  //   {
+  //    "id": "1",
+  //    "orderNum": 10
+  //   },
+  //   {
+  //    "id": "2",
+  //    "data": [
+  //     {
+  //      "name": "Мужские Кроссовки Nike Blazer Mid Suede",
+  //      "price": 12999,
+  //      "img": "./img/1.png"
+  //     },
+  //     {
+  //      "name": "Мужские Кроссовки Nike Air Max 270",
+  //      "price": 12999,
+  //      "img": "./img/2.png"
+  //     },
+  //     {
+  //      "name": "Мужские Кроссовки Nike Blazer Mid Suede",
+  //      "price": 8499,
+  //      "img": "./img/3.png"
+  //     },
+  //     {
+  //      "name": "Мужские Кроссовки Under Armour Curry 8",
+  //      "price": 15199,
+  //      "img": "./img/4.png"
+  //     },
+  //     {
+  //      "name": "Мужские Кроссовки Nike Kyrie 7",
+  //      "price": 11299,
+  //      "img": "./img/5.png"
+  //     },
+  //     {
+  //      "name": "Мужские Кроссовки Jordan Air Jordan 11",
+  //      "price": 12999,
+  //      "img": "./img/6.png"
+  //     },
+  //     {
+  //      "name": "Мужские Кроссовки Nike Blazer Mid Suede",
+  //      "price": 10799,
+  //      "img": "./img/7.png"
+  //     },
+  //     {
+  //      "name": "Мужские Кроссовки Nike LeBron XVIII",
+  //      "price": 16499,
+  //      "img": "./img/8.png"
+  //     },
+  //     {
+  //      "name": "Мужские Кроссовки Nike Lebron XVIII Low",
+  //      "price": 13999,
+  //      "img": "./img/9.png"
+  //     },
+  //     {
+  //      "name": "Мужские Кроссовки Nike Blazer Mid Suede",
+  //      "price": 8499,
+  //      "img": "./img/10.png"
+  //     },
+  //     {
+  //      "name": "Кроссовки Puma X Aka Boku Future Rider",
+  //      "price": 8999,
+  //      "img": "./img/11.png"
+  //     },
+  //     {
+  //      "name": "Мужские Кроссовки Nike Kyrie Flytrap IV",
+  //      "price": 11399,
+  //      "img": "./img/12.png"
+  //     }
+  //    ]
+  //   }
+  //  ]
   let [sneakers, setsneakers] = React.useState([])
   let [sneakers_basket, setsneakers_basket] = React.useState([])
   let [orderNum,setorderNum] = React.useState(0)
+  let [sneakers_orders,setsneakers_orders] = React.useState([])
+
+  let [isLoading,setisLoading] = React.useState()
 
   let callSetSneakers_basket = (des = null, price = null, img = null) => {
     let obj = {"id": null, "name": des, "price": price, "img": img }
@@ -27,14 +107,18 @@ function App() {
   let [overlaySwitch, setoverlaySwitch] = React.useState(false)
 
   //
-
   React.useEffect(() => {
-    axios.get("https://63a0a96a24d74f9fe83eb686.mockapi.io/items").then(resdata => {
-    setsneakers(resdata.data[1].data) 
-    setorderNum(resdata.data[0].orderNum)
-    setitemsPrice(resdata.data[0].itemsPrice)
-  })
-    axios.get("https://63a0a96a24d74f9fe83eb686.mockapi.io/card").then(resdata => setsneakers_basket(resdata.data))
+    setisLoading(true)
+    axios.get("https://63a0a96a24d74f9fe83eb686.mockapi.io/card")
+      .then(resdata => setsneakers_basket(resdata.data))
+        .then(axios.get("https://63a0a96a24d74f9fe83eb686.mockapi.io/items")
+          .then(resdata => {
+            setsneakers(resdata.data[1].data) 
+            setorderNum(resdata.data[0].orderNum)
+            setitemsPrice(resdata.data[0].itemsPrice)
+          })
+        )
+            .then(setisLoading(false))
   }, [])
 
   React.useEffect(() => {
@@ -63,64 +147,46 @@ function App() {
     setorderNum(orderNum=>orderNum=orderNum+1)
     let data={"id":1,"orderNum":orderNum+1}
     axios.put("https://63a0a96a24d74f9fe83eb686.mockapi.io/items/1",data)
+    .then(sneakers_basket.forEach(obj=>{
+      axios.delete(`https://63a0a96a24d74f9fe83eb686.mockapi.io/card/${obj.id}`)
+      setsneakers_orders(sneakers_orders=>[...sneakers_orders,obj])
+    }
+    ))
+    .then(setsneakers_basket([])).then(setitemsPrice(0))
+
   }
   return (
-    <Routes>
-      <Route 
-      path='/' 
-      element={
-        <AllSneakers 
-        overlaySwitch={overlaySwitch}
-        closebasket={closebasket} 
-        sneakers_basket={sneakers_basket} 
-        callDelSneakers_basket={callDelSneakers_basket}
-        itemsPrice={itemsPrice}
-        BasketOrderFunc={BasketOrderFunc}
-        tf={tf}
-        orderNum={orderNum}
-        openbasket={openbasket} 
-        callSetSneakers_basket={callSetSneakers_basket}
-        sneakers={sneakers} 
+    <AppContext.Provider value={{sneakers_basket,sneakers,tf,overlaySwitch,closebasket,callDelSneakers_basket,itemsPrice,BasketOrderFunc,orderNum,openbasket}}>
+      <Routes>
+        <Route 
+        path='/' 
+        element={
+          <AllSneakers 
+          callSetSneakers_basket={callSetSneakers_basket}
+          isLoading={isLoading}
+          />
+        }
         />
-      }
-      />
 
-      <Route 
-      path='/MyBookmarks' 
-      element={
-        <MyBookmarks
-        overlaySwitch={overlaySwitch}
-        closebasket={closebasket} 
-        callDelSneakers_basket={callDelSneakers_basket}
-        itemsPrice={itemsPrice}
-        BasketOrderFunc={BasketOrderFunc}
-        tf={tf}
-        orderNum={orderNum}
-        openbasket={openbasket} 
+        <Route 
+        path='/MyBookmarks' 
+        element={
+          <MyBookmarks
 
-        sneakers_basket={sneakers_basket} 
+          />
+        }
         />
-      }
-      />
 
-      <Route 
-      path='/MyOrders' 
-      element={
-        <MyOrders
-        overlaySwitch={overlaySwitch}
-        closebasket={closebasket} 
-        callDelSneakers_basket={callDelSneakers_basket}
-        itemsPrice={itemsPrice}
-        BasketOrderFunc={BasketOrderFunc}
-        tf={tf}
-        orderNum={orderNum}
-        openbasket={openbasket} 
-
-        sneakers_basket={sneakers_basket} 
+        <Route 
+        path='/MyOrders' 
+        element={
+          <MyOrders
+          sneakers_orders={sneakers_orders} 
+          />
+        }
         />
-      }
-      />
-    </Routes>
+      </Routes>
+    </AppContext.Provider>
 
   );
 }

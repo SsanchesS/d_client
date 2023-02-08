@@ -3,11 +3,11 @@ import Sneaker from '../../components/SneakerMain/Sneaker/Sneaker';
 
 function SneakerOrders(p) {
    let helpFunc=()=>{
-      if(p.sneakers_basket.length!==0) { return (
+      if(p.sneakers_orders.length!==0) { return (
       <div className="sneakers-wrap-main">
          <div className="sneakers-header"><h1>{"Мои покупки"}</h1></div>
          <div className='sneakers-wrap'>{
-            p.sneakers_basket.map((obj,index) => {
+            p.sneakers_orders.map((obj,index) => {
                return (
                   <Sneaker 
                   key={index}
