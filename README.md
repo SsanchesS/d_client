@@ -1,5 +1,7 @@
 Магазин Кроссовок
 
+npm i
+
 npm uninstall node-sass
 
 npm install sass
