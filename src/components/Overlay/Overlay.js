@@ -1,6 +1,5 @@
 import BasketOrder from "./BasketOrder/BasketOrder"
 import BasketOrderReadyUnReady from "./BasketOrderReadyUnReady/BasketOrderReadyUnReady"
-import axios from "axios"
 
 function Overlay(p){
    let helpFunc=()=>{
@@ -12,7 +11,7 @@ function Overlay(p){
       BasketOrderFunc={p.state.BasketOrderFunc}
       />) }
       else if(p.state.tf){ 
-         axios.put(`https://63a0a96a24d74f9fe83eb686.mockapi.io/card`,[])  // удаляем все из корзины если прошел заказ (но это не точно)
+         // axios.put(`https://63a0a96a24d74f9fe83eb686.mockapi.io/card`,[])  // удаляем все из корзины если прошел заказ (но это не точно)
       return(
       //Ready
       <BasketOrderReadyUnReady

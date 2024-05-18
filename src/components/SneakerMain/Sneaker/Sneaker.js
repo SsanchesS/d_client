@@ -1,5 +1,4 @@
 import React from "react"
-import MyLoader from '../MyLoader/MyLoader';
 
 function Sneaker(p) {
   let [isAdd,setisAdd] = React.useState(false)
@@ -10,7 +9,7 @@ function Sneaker(p) {
   }
 return (
   <div className="sneakers-card">{
-    p.isLoading ? <MyLoader/> :
+    p.isLoading ? <div>Загрузка...</div> :
       <>
       <div className="sneakers-bg"><img src={p.img} alt="sneaker"></img></div>
       <div className="des"><p>{p.des}</p></div>
