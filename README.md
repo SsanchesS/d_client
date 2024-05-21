@@ -1,13 +1,13 @@
 Магазин Кроссовок
 
+- нет кнопок на кроссовках
+
+Запуск:
 npm i
+npm start
+или в папке build
 
-npm uninstall node-sass
-
-npm install sass
-
-npm install axios
-
-npm install react-router-dom
-
-npm i react-content-loader
+// 
+// npm uninstall node-sass
+// npm install sass
+// npm install react-router-dom

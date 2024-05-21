@@ -21,6 +21,7 @@ return (
   </Routes>
   :
   <Routes>
+    <Route path ='/' element = {<HomePage/>}/>
     <Route path="/registration" element={<RegistrationPage/>}/>
     <Route path="/auth" element={<AuthPage/>}/>
     <Route path="/notFound" element={<NotFoundPage/>}/>

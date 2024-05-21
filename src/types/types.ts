@@ -1,9 +1,23 @@
+export interface ISneaker{
+   id: number,
+   img: string // file
+   des: string,
+   price: number
+}
 export interface IUser{
    id: number,
    f_name: string,
    s_name: string,
    email: string,
-   password?: string
+   password?: string,
+   role_id: number,
+
+   itemsPrice: number,
+   sneakers_basket: ISneaker[]   
+}
+export interface ISneakersState{
+   sneakers: ISneaker[] | null,
+   overlaySwitch: boolean
 }
 export interface IOrder{
    id: number,
@@ -19,6 +33,7 @@ export interface Iresponse{
    message: string,
    user?: IUser | null,
    orders?: IOrder[] | null,
-   order?: IOrder | null
+   order?: IOrder | null,
+   sneakers?: ISneaker[] | null,
 // ....
 }

@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import {IUser} from "../../types/types"
 
 const initialState:IUser = {
@@ -6,19 +6,31 @@ const initialState:IUser = {
    f_name: "",
    s_name: "",
    email: "",
-   password: ""
+   password: "",
+   role_id: 0,
+
+   itemsPrice: 0, // цена всех в корзине
+   sneakers_basket: [] // кросы в корзине
+
+   // sneakers: [], // все кросы на сервере
+   // overlaySwitch: false // открыта ли корзина
 }
 const UserSlice = createSlice({
    name:"UserSlice",
    initialState,
    reducers:{
-      getUser:()=>{
+      // getUser:(state)=>{
+      //    return state
+      // },
+      setUser:(state,action:PayloadAction<IUser>)=>{
+         // сохраняем после перезагрузки
 
-      },
-      setUser:()=>{
-
+         return {
+            ...state,
+            ...action.payload,
+         };
       }
    }
 })
 export default UserSlice.reducer
-export const {getUser,setUser} = UserSlice.actions
+export const {setUser} = UserSlice.actions

@@ -17,7 +17,7 @@
     "img": "./img/2.png"
    },
    {
-    "name": "Мужские Кроссовки Nike Blazer Mid Suede",
+    "name": "Мужские Кроссовки Nike Gavaya Mid",
     "price": 8499,
     "img": "./img/3.png"
    },

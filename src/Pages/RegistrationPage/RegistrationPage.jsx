@@ -1,4 +1,4 @@
-import React, { FC,useState,useRef } from 'react'
+import React, { FC,useState} from 'react'
 import s from './RegistrationPage.module.sass'
 import { useAppDispatch } from '../../hooks/hooks'
 
@@ -37,7 +37,7 @@ const RegistrationPage = () => {               // :FC
       return
     }
 
-    const registration_data = {f_name,s_name,email,password} // Partial<IUser>
+    const registration_data = {f_name,s_name,password,email} // Partial<IUser>
 
     try {
       await registration(registration_data).then(onfulfilled=>{ // data or error                                     ////////////////////////////////////// ПОПРОБОВАТЬ БЕЗ then //////////////////////////////////////

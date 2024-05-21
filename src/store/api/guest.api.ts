@@ -1,15 +1,15 @@
 import { IUser, Iresponse } from "../../types/types";
 import { api } from "./api";
 
-interface IRegistrationData extends Pick<IUser,"f_name"|"s_name"|"email"|"password">{}
+interface IRegistrationData extends Pick<IUser,"f_name"|"s_name"|"password"|"email">{}
 
-interface IAuthData extends Pick<IUser,"email"|"password">{}
+interface IAuthData extends Pick<IUser,"password"|"email">{}
 
 export const guestApi = api.injectEndpoints({
    endpoints: build =>({
       registration: build.mutation<Iresponse,IRegistrationData>({
          query: (RegistrationData:IRegistrationData)=>({
-            url: "/registration",
+            url: "/registration", 
             method: "POST",
             body: RegistrationData
          }),

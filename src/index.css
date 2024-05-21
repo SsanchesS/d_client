@@ -1,0 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap");
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+li{
+  list-style-type: none;
+}
+body{
+  font-family: "Montserrat";
+  margin: 0;
+  /* Улучшение сглаживания текста  */
+  -webkit-font-smoothing: antialiased; 
+  -moz-osx-font-smoothing: grayscale;
+  background: #E7F6FF;
+  /* background-color: #141414; */
+}
+.flex{
+  display: flex;
+}
+.center{
+  width: 70%;
+  height: 100%;
+  margin: 0 auto;
+}
+.button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.button button{
+  color: white;
+  cursor: pointer;
+  padding: 10px 15px;
+  background-color: #393939;
+  border: none;
+  border-radius: 10px;
+  width: 100%;   
+  font-size: 16px;
+}
+.button button:hover{
+  background-color: #3e3e3e;
+}
+                            /* Почему Bright и т.п я не знаю... давно писал эти классы */
+/* .Bright{                             
+  margin-right: 8px;
+}
+.Lright{
+  margin-right: 50px;
+}
+.Bleft button{
+  padding-right: 40px;
+  position: relative;
+}
+.Bleft button::before{
+  content: '';
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  top: 10px;
+  left: 52px;
+  background: url('../public/img/arrow.png') no-repeat center center;
+  background-size: cover;
+} */
+.card{
+  border: 1px solid #393939;
+  border-radius: 15px;
+  margin-bottom: 10px;
+  background-color: #222;
+  width: 100%;
+  padding: 15px;
+}
+.hide{
+  display: none  !important
+}
+.wrap{
+  flex-wrap: wrap;
+}
+.mt10px{
+  margin-top: 10px;
+}
+.mb10px{
+  margin-bottom: 10px;
+}
+.mr10px{
+  margin-right: 10px;
+}
+.vis_none{
+  visibility: hidden;
+  opacity: 0;
+}
+.red{
+  color:red
+}
+.white{
+  color: white
+}
+.b_y{
+  color: #ca9430;
+}   
+.w_y{
+  color: #dbb948;
+}
+
+/* *{
+  border: 1px solid red;
+} */

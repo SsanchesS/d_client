@@ -8,7 +8,7 @@ interface IOrderData extends Pick<IOrder,"user_id"|"order_date"|"sum"|"delivery_
 interface DeleteOrderParams {
    user_id: number,
    id: number
- }
+}
 
 export const userApi = api.injectEndpoints({
    endpoints: build =>({
@@ -34,6 +34,13 @@ export const userApi = api.injectEndpoints({
          invalidatesTags: ["User"]
       }),
       // 
+      getSneakers: build.query<Iresponse, null>({
+         query: () => ({
+            url: `/users/sneakers/`,        
+         }),
+         providesTags: result => ["Sneakers"]
+      }),
+      //
       getOrders: build.query<Iresponse, number>({
          query: (user_id: number) => ({
             url: `/users/orders/${user_id}`,        

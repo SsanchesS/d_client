@@ -1,23 +1,25 @@
 import {Link} from 'react-router-dom'
-
-function Header(p){
+import { useAppSelector } from "../../hooks/hooks"
+import s from './Header.module.sass'
+function Header(){
+   const state = useAppSelector(state=>state.UserReducer)
 return(
-<div className="header">
-   <div className="header-left">
-      <Link className="logo" to="/"><img src="img/logo.svg" alt="logo"></img></Link>
-      <div className="text">
+<div className={`${s.header}`}>
+   <div className={`${s.header_left}`}>
+      <Link className={`${s.logo}`} to="/"><img src="img/logo.svg" alt="logo"></img></Link>
+      <div className={`${s.text}`}>
          <h1 className="flex"><div className={"w_y"}>К</div><div className={"b_y"}>Р</div><div className={"w_y"}>О</div><div className={"b_y"}>С</div><div className={"b_y"}>С</div><div className={"w_y"}>О</div><div className={"b_y"}>В</div><div className={"w_y"}>К</div><div className={"b_y"}>И</div></h1>
          <p>Магазин лучших кроссовок</p>
       </div>
    </div>
-   <div className="header-right">
-      <div className="right-left">
-         <button className="basket" onClick={p.openbasket}></button>
-         <p>{p.itemsPrice} руб.</p>
+   <div className={`${s.header_right}`}>
+      <div className={`${s.right_left}`}>
+         <button className={`${s.basket}`} onClick={()=>console.log("openbasket")}></button>  {/*openbasket от крыть */}         
+         <p>{state.itemsPrice} руб.</p>
       </div>
-      <div className="right-right">
-         <Link className="like" to="/MyBookmarks"></Link>
-         <Link className="user" to="/MyOrders"></Link>
+      <div className={`${s.right_right}`}>
+         <Link className={`${s.like}`} to={`${state.id?"/MyBookmarks":"/auth"}`}></Link>
+         <Link className={`${s.user}`} to={`${state.id?"/MyOrders":"/auth"}`}></Link>
       </div>
    </div>
 </div>
