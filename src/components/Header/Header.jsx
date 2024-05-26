@@ -1,8 +1,13 @@
 import {Link} from 'react-router-dom'
-import { useAppSelector } from "../../hooks/hooks"
+import { useAppDispatch, useAppSelector } from "../../hooks/hooks"
 import s from './Header.module.sass'
+import {overlaySwitch} from "../../store/reducers/SneakersSlice"
 function Header(){
-   const state = useAppSelector(state=>state.UserReducer)
+   const dispatch = useAppDispatch()
+   const user = useAppSelector(state=>state.UserReducer)
+   const openbasket=()=>{
+      dispatch(overlaySwitch(true))
+   }
 return(
 <div className={`${s.header}`}>
    <div className={`${s.header_left}`}>
@@ -14,12 +19,12 @@ return(
    </div>
    <div className={`${s.header_right}`}>
       <div className={`${s.right_left}`}>
-         <button className={`${s.basket}`} onClick={()=>console.log("openbasket")}></button>  {/*openbasket от крыть */}         
-         <p>{state.itemsPrice} руб.</p>
+         <button className={`${s.basket}`} onClick={openbasket}></button>       
+         <p>{user.itemsPrice} руб.</p>
       </div>
       <div className={`${s.right_right}`}>
-         <Link className={`${s.like}`} to={`${state.id?"/MyBookmarks":"/auth"}`}></Link>
-         <Link className={`${s.user}`} to={`${state.id?"/MyOrders":"/auth"}`}></Link>
+         <Link className={`${s.like}`} to={`${user.id?"/MyBookmarks":"/auth"}`}></Link>
+         <Link className={`${s.user}`} to={`${user.id?"/MyOrders":"/auth"}`}></Link>
       </div>
    </div>
 </div>

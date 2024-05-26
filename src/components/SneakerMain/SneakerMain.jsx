@@ -40,6 +40,7 @@ return (
             return (
                <Sneaker 
                key={index}
+               id={obj.id}
                des={obj.des} 
                price={obj.price} 
                img={obj.img} 
