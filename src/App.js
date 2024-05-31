@@ -7,7 +7,7 @@ import AuthPage from "./Pages/AuthPage/AuthPage";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 import HomePage from './Pages/HomePage/HomePage';
 import MyBookmarks from './Pages/MyBookmarks/MyBookmarks';
-import MyOrders from './Pages/MyOrders/MyOrders';
+import UserPage from './Pages/UserPage/UserPage';
 
 function App() {
   const user = useAppSelector(state=>state.UserReducer)
@@ -16,6 +16,8 @@ return (
 { user.id ?
   <Routes>
     <Route path ='/' element = {<HomePage/>}/>
+    <Route path ='/MyBookmarks' element = {<MyBookmarks/>}/>
+    <Route path ='/User' element = {<UserPage/>}/>
     <Route path="/notFound" element={<NotFoundPage/>}/>
     <Route path="*" element={<NotFoundPage/>}/>
   </Routes>

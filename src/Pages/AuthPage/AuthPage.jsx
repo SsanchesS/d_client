@@ -6,6 +6,8 @@ import {guestApi} from "../../store/api/guest.api"
 import {setUser} from "../../store/reducers/UserSlice"
 import { Link,useNavigate } from 'react-router-dom'
 
+import {parseData} from "../../service/servise"
+
 const AuthPage = () => { // :FC
 const dispatch = useAppDispatch()
 const navigate = useNavigate()
@@ -42,7 +44,9 @@ const onClick_auth = async()=>{
     const id = onfulfilled.data.user.id
     setMessageError(onfulfilled.data.message)
 
-    dispatch(setUser(onfulfilled.data.user))
+    const data = parseData(onfulfilled.data.user)
+    dispatch(setUser(data))
+    
     navigate(`/`,{replace:true})
   }catch (error) { //:any
       setMessageError("Ошибка")

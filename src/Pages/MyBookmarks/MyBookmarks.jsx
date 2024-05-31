@@ -4,15 +4,13 @@ import SneakerBookmarks from '../../components/SneakerBookmarks/SneakerBookmarks
 
 import React from "react"
 
-function MyBookmarks(p) {
+function MyBookmarks() {
 
 return (
   <div className="App">
-    <Overlay /> {/* state={state} */}
-    <Header/> {/* openbasket={state.openbasket} itemsPrice={state.itemsPrice} */}
-    
-    <SneakerBookmarks/> {/* sneakers_basket={state.sneakers_basket} */}    
-
+    <Overlay />
+    <Header/>    
+    <SneakerBookmarks/>  
   </div>
 );
 }

@@ -10,10 +10,8 @@ const initialState:IUser = {
    role_id: 0,
 
    itemsPrice: 0, // цена всех в корзине
-   sneakers_basket: [] // кросы в корзине
-
-   // sneakers: [], // все кросы на сервере
-   // overlaySwitch: false // открыта ли корзина
+   sneakers_basket: [], // кросы в корзине
+   sneakers_orders: [] // заказаные кросы
 }
 const UserSlice = createSlice({
    name:"UserSlice",

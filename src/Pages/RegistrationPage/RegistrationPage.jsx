@@ -50,7 +50,7 @@ const RegistrationPage = () => {               // :FC
         }
         const id = onfulfilled.data.user.id
         setMessageError(onfulfilled.data.message)
-
+        
         dispatch(setUser(onfulfilled.data.user))
         navigate(`/`,{replace:true})
       })

@@ -4,17 +4,6 @@ export interface ISneaker{
    des: string,
    price: number
 }
-export interface IUser{
-   id: number,
-   f_name: string,
-   s_name: string,
-   email: string,
-   password?: string,
-   role_id: number,
-
-   itemsPrice: number,
-   sneakers_basket: ISneaker[]   
-}
 export interface ISneakersState{
    sneakers: ISneaker[] | null,
    overlaySwitch: boolean
@@ -27,6 +16,18 @@ export interface IOrder{
    status: string,
    delivery_method_id: string, // на серсере должено быть переформатирование
    payment_method_id: string,
+}
+export interface IUser{
+   id: number,
+   f_name: string,
+   s_name: string,
+   email: string,
+   password?: string,
+   role_id: number,
+
+   itemsPrice: number,
+   sneakers_basket: ISneaker[] | null,
+   sneakers_orders: IOrder[] | null
 }
 export interface Iresponse{
    code: number,

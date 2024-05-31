@@ -52,7 +52,7 @@ return(
          <h2>Корзина</h2>
          {/* {helpFunc()} */}
          {                          // !==0
-            user.sneakers_basket.length ? <BasketOrder sneakers_basket={user.sneakers_basket} itemsPrice={user.itemsPrice}/>
+            user.sneakers_basket?.length ? <BasketOrder sneakers_basket={user.sneakers_basket} itemsPrice={user.itemsPrice}/>
             :
             <BasketOrderReadyUnReady
                img="img/UnReady.svg"

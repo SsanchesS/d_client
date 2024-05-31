@@ -40,7 +40,7 @@ export const userApi = api.injectEndpoints({
          }),
          providesTags: result => ["Sneakers"]
       }),
-      //
+      //////////////////////////////////////////////////////////////////////
       getOrders: build.query<Iresponse, number>({
          query: (user_id: number) => ({
             url: `/users/orders/${user_id}`,        
