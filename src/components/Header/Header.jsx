@@ -23,7 +23,6 @@ return(
          <p>{user.itemsPrice} руб.</p>
       </div>
       <div className={`${s.right_right}`}>
-         <Link className={`${s.like}`} to={`${user.id?"/MyBookmarks":"/auth"}`}></Link>
          <Link className={`${s.user}`} to={`${user.id?"/User":"/auth"}`}></Link>
       </div>
    </div>

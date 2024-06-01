@@ -3,7 +3,7 @@ import { api } from "./api";
 
 interface IUserData extends Pick<IUser,"f_name"|"s_name"|"email"|"password">{}
 
-interface IOrderData extends Pick<IOrder,"user_id"|"order_date"|"sum"|"delivery_method_id"|"payment_method_id">{}
+interface IOrderData extends Pick<IOrder,"user_id"|"order_date"|"sum"|"delivery_method"|"payment_method">{}
 
 interface DeleteOrderParams {
    user_id: number,

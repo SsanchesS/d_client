@@ -6,7 +6,6 @@ import RegistrationPage from "./Pages/RegistrationPage/RegistrationPage";
 import AuthPage from "./Pages/AuthPage/AuthPage";
 import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 import HomePage from './Pages/HomePage/HomePage';
-import MyBookmarks from './Pages/MyBookmarks/MyBookmarks';
 import UserPage from './Pages/UserPage/UserPage';
 
 function App() {
@@ -16,7 +15,6 @@ return (
 { user.id ?
   <Routes>
     <Route path ='/' element = {<HomePage/>}/>
-    <Route path ='/MyBookmarks' element = {<MyBookmarks/>}/>
     <Route path ='/User' element = {<UserPage/>}/>
     <Route path="/notFound" element={<NotFoundPage/>}/>
     <Route path="*" element={<NotFoundPage/>}/>

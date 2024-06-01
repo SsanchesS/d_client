@@ -1,11 +1,22 @@
 import SneakerBasket from './SneakerBasket/SneakerBasket';
+import BasketOrderReadyUnReady from "../BasketOrderReadyUnReady/BasketOrderReadyUnReady"
 import s from './BasketOrder.module.sass'
 
 function BasketOrder(p){
 
-   const placeOrder=()=>{
-      console.log("Заказ оформлен")
-   }
+const placeOrder=()=>{
+   console.log("Заказ оформлен")
+return(
+   <BasketOrderReadyUnReady
+      img="img/Ready.svg"
+      h2="Заказ оформлен!"
+      // p1= {`Ваш заказ #${state.orderNum} скоро будет передан`}
+      p2="курьерской доставке"   
+      closebasket={p.closebasket}
+   />
+)
+}
+
 return(
    <div className={`${s.basketOrder}`}>
       <div className={`${s.sneaker_basket_wrap}`}>{

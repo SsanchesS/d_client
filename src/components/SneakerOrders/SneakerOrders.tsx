@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import Sneaker from '../SneakerMain/Sneaker/Sneaker';
+import Order from './Order/Order';
 import s from './SneakerOrders.module.sass'
 import { useAppSelector} from '../../hooks/hooks';
 
@@ -16,13 +16,14 @@ return (
       <div className={`${s.sneakers_wrap}`}>{
          user.sneakers_orders.map((obj,index) => {
             return (
-               // <Sneaker 
-               // key={index}
-               // des={obj.name} 
-               // price={obj.price} 
-               // img={obj.img}
-               // />
-               <div>Заказы есть</div>
+               <Order 
+                  key={obj.id}
+                  order_date={obj.order_date}
+                  sum={obj.sum}
+                  status={obj.status}
+                  delivery_method_id={obj.delivery_method}
+                  payment_method_id={obj.payment_method}
+               />
             )
          })
       }

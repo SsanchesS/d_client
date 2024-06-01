@@ -9,3 +9,5 @@ npm start
 // npm uninstall node-sass
 // npm install sass
 // npm install react-router-dom
+
+- itemsPrice Убрать orderNum Поставить

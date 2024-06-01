@@ -14,8 +14,8 @@ export interface IOrder{
    order_date: Date,   // мб проблемы
    sum: number,
    status: string,
-   delivery_method_id: string, // на серсере должено быть переформатирование
-   payment_method_id: string,
+   delivery_method: string,
+   payment_method: string,
 }
 export interface IUser{
    id: number,
