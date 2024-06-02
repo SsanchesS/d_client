@@ -11,3 +11,5 @@ npm start
 // npm install react-router-dom
 
 - itemsPrice Убрать orderNum Поставить
+
+- Добавить в типах | null ?

@@ -22,7 +22,7 @@ const UserSlice = createSlice({
       // },
       setUser:(state,action:PayloadAction<IUser>)=>{
          // сохраняем после перезагрузки
-
+         
          return {
             ...state,
             ...action.payload,

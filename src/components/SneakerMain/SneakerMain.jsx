@@ -44,6 +44,8 @@ return (
                des={obj.des} 
                price={obj.price} 
                img={obj.img} 
+               category_id={obj.category_id}
+               setMessageError={setMessageError}
                // callSetSneakers_basket={state.callSetSneakers_basket} // ??????????????????
                />
             )

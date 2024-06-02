@@ -1,7 +1,12 @@
 import { IUser, Iresponse,IOrder } from "../../types/types";
 import { api } from "./api";
 
-interface IUserData extends Pick<IUser,"f_name"|"s_name"|"email"|"password">{}
+// interface IUserData extends Pick<IUser,"f_name"|"s_name"|"email"|"password">{}
+
+interface IUserData{
+   id: number,
+   user: IUser
+}
 
 interface IOrderData extends Pick<IOrder,"user_id"|"order_date"|"sum"|"delivery_method"|"payment_method">{}
 
@@ -12,7 +17,7 @@ interface DeleteOrderParams {
 
 export const userApi = api.injectEndpoints({
    endpoints: build =>({
-      getUser: build.query<IUser, number>({
+      getUser: build.query<Iresponse, number>({
          query: (id: number) => ({
             url: `/users/${id}`,        
          }),
@@ -20,9 +25,9 @@ export const userApi = api.injectEndpoints({
       }),
       updUser: build.mutation<Iresponse,IUserData>({
          query: (UserData:IUserData)=>({
-            url: "/users",
+            url: `/users/${UserData.id}`,
             method: "PUT",
-            body: UserData
+            body: UserData.user
          }),
          invalidatesTags: ["User"]
       }),

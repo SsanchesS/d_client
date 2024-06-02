@@ -19,13 +19,13 @@ export interface IOrder{
 }
 export interface IUser{
    id: number,
-   f_name: string,
-   s_name: string,
-   email: string,
-   password?: string,
-   role_id: number,
+   f_name: string | null,
+   s_name: string | null,
+   email: string | null,
+   password?: string | null,
+   role_id: number | null,
 
-   itemsPrice: number,
+   itemsPrice: number | null,
    sneakers_basket: ISneaker[] | null,
    sneakers_orders: IOrder[] | null
 }
