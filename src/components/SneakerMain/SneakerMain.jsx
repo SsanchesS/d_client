@@ -10,7 +10,7 @@ function SneakerMain() {
 
    const [MessageError,setMessageError] = useState('')
    const dispatch = useAppDispatch()
-                                       // и юзера получить
+
    const {data,isLoading,error} = userApi.useGetSneakersQuery()
    
    
@@ -46,14 +46,11 @@ return (
                img={obj.img} 
                category_id={obj.category_id}
                setMessageError={setMessageError}
-               // callSetSneakers_basket={state.callSetSneakers_basket} // ??????????????????
                />
             )
          })
       }
       </div>
    </div>
-)
-}
-
+)}
 export default SneakerMain;

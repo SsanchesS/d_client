@@ -13,3 +13,5 @@ npm start
 - itemsPrice Убрать orderNum Поставить
 
 - Добавить в типах | null ?
+
+- overlaySwitch не должен быть в бд

@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks"
 import BasketOrder from "./BasketOrder/BasketOrder"
 import BasketOrderReadyUnReady from "./BasketOrderReadyUnReady/BasketOrderReadyUnReady"
@@ -5,6 +6,8 @@ import s from './Overlay.module.sass'
 import {overlaySwitch} from "../../store/reducers/SneakersSlice"
 
 function Overlay(){
+   const [MessageError,setMessageError] = useState('')
+
    const dispatch = useAppDispatch()
    const user = useAppSelector(state=>state.UserReducer)
    const sneakers = useAppSelector(state=>state.SneakersReducer)
@@ -17,8 +20,9 @@ return(
       <div className={`${s.opacity}`} onClick={closebasket}></div>
       <div className= {`${s.right_basket}`}>
          <h2>Корзина</h2>
+         <div className={`${MessageError ? '' : 'vis_none'} red`}><p className={`mt10px ${s.MessageError} red`}>{MessageError}</p></div>
          {
-            user.sneakers_basket ? <BasketOrder sneakers_basket={user.sneakers_basket} closebasket={closebasket}/> // orderNum={user.orderNum}
+            user.sneakers_basket ? <BasketOrder sneakers_basket={user.sneakers_basket} closebasket={closebasket} setMessageError={setMessageError}/> // orderNum={user.orderNum}
             :
             <BasketOrderReadyUnReady
                img="img/UnReady.svg"
@@ -32,5 +36,4 @@ return(
    </div>
    )
 }
-
 export default Overlay;
