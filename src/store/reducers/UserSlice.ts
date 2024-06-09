@@ -9,7 +9,6 @@ const initialState:IUser = {
    password: "",
    role_id: 0,
 
-   itemsPrice: 0, // цена всех в корзине
    sneakers_basket: [], // кросы в корзине
    sneakers_orders: [] // заказаные кросы
 }

@@ -7,13 +7,14 @@ interface IUserData{
    id: number,
    user: IUser
 }
-
-interface IOrderData extends Pick<IOrder,"user_id"|"order_date"|"sum"|"delivery_method"|"payment_method">{}
-
-interface DeleteOrderParams {
-   user_id: number,
-   id: number
+interface IOrderData{
+   id: number,
+   order: IOrder
 }
+// interface DeleteOrderParams {
+//    user_id: number,
+//    id: number
+// }
 
 export const userApi = api.injectEndpoints({
    endpoints: build =>({
@@ -45,6 +46,12 @@ export const userApi = api.injectEndpoints({
          }),
          providesTags: result => ["Sneakers"]
       }),
+      getMethods: build.query<Iresponse, null>({
+         query: () => ({
+            url: `/users/methods/`,        
+         }),
+         providesTags: result => ["Methods"]
+      }),
       //////////////////////////////////////////////////////////////////////
       getOrders: build.query<Iresponse, number>({
          query: (user_id: number) => ({
@@ -60,9 +67,17 @@ export const userApi = api.injectEndpoints({
          }),
          invalidatesTags: ["Orders"]
       }),
-      delOrder: build.mutation<Iresponse,DeleteOrderParams>({
-         query: ({ user_id, id }: DeleteOrderParams)=>({
-            url: `/users/orders/${user_id}/${id}`,
+      updOrder: build.mutation<Iresponse,IOrderData>({
+         query: (OrderData:IOrderData)=>({
+            url: `/users/orders/${OrderData.id}`,
+            method: "PUT",
+            body: OrderData.order
+         }),
+         invalidatesTags: ["Orders"]
+      }),
+      delOrder: build.mutation<Iresponse,number>({
+         query: (id: number)=>({
+            url: `/users/orders/${id}`,
             method: "DELETE"
          }),
          invalidatesTags: ["Orders"]

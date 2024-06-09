@@ -1,12 +1,28 @@
 import {Link} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from "../../hooks/hooks"
 import s from './Header.module.sass'
 import {overlaySwitch} from "../../store/reducers/SneakersSlice"
+import { useState,useEffect } from 'react'
 function Header(){
+   const navigate = useNavigate()
    const dispatch = useAppDispatch()
    const user = useAppSelector(state=>state.UserReducer)
+
+   const [ItemsPrice,setItemsPrice] = useState(0)
+
+   const sneakers_basket = user.sneakers_basket
+   useEffect(()=>{
+      const sum = sneakers_basket?.reduce((acc,i)=>acc+i.price,0)
+      setItemsPrice(sum)
+   },[sneakers_basket]) 
+
    const openbasket=()=>{
-      dispatch(overlaySwitch(true))
+      if(!user.id){
+         navigate("/auth",{replace:true})
+      }else{
+         dispatch(overlaySwitch(true))
+      }      
    }
 return(
 <div className={`${s.header}`}>
@@ -20,7 +36,7 @@ return(
    <div className={`${s.header_right}`}>
       <div className={`${s.right_left}`}>
          <button className={`${s.basket}`} onClick={openbasket}></button>       
-         <p>{user.itemsPrice} руб.</p>
+         <p>{ItemsPrice} руб.</p>
       </div>
       <div className={`${s.right_right}`}>
          <Link className={`${s.user}`} to={`${user.id?"/User":"/auth"}`}></Link>

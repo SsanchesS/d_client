@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import {ISneakersState,ISneaker} from "../../types/types"
+import {ISneakersState,ISneaker,IMethod} from "../../types/types"
 
 const initialState:ISneakersState = {
    sneakers: null, // все кросы на сервере
-   overlaySwitch: false // открыта ли корзина
+   overlaySwitch: false, // открыта ли корзина
+   methods: null
 }
 const SneakersSlice = createSlice({
    name:"SneakersSlice",
@@ -15,8 +16,11 @@ const SneakersSlice = createSlice({
       },
       overlaySwitch:(state,action:PayloadAction<boolean>)=>{
          state.overlaySwitch = action.payload
+      },
+      setMethods:(state,action:PayloadAction<IMethod>)=>{
+         state.methods = action.payload
       }
    }
 })
 export default SneakersSlice.reducer
-export const {setSneakers,overlaySwitch} = SneakersSlice.actions
+export const {setSneakers,overlaySwitch,setMethods} = SneakersSlice.actions

@@ -102,7 +102,12 @@ body{
 .w_y{
   color: #dbb948;
 }
-
+.inputs input{  
+  width: 100%;
+  padding: 10px;
+  outline: none;
+}
+    
 /* *{
   border: 1px solid red;
 } */

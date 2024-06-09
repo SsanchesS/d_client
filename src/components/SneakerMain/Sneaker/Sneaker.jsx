@@ -12,7 +12,7 @@ function Sneaker(p) {
 
   const [updUser,{data,isLoading,error}] = userApi.useUpdUserMutation()
 
-let add_sneaker = async()=>{
+const add_sneaker = async()=>{
   if(!user.id){
     navigate("/auth",{replace:true})
   }else{
@@ -40,7 +40,7 @@ let add_sneaker = async()=>{
   }
 }
 
-let del_sneaker =async()=>{
+const del_sneaker =async()=>{
   if(!user.id){
     navigate("/auth",{replace:true})
   }else{

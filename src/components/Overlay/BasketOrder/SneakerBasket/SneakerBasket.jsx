@@ -26,7 +26,10 @@ const deleteFromBasket = async()=>{
     p.setMessageError(onfulfilled.data.message)
 
     // const data = parseData(onfulfilled.data.user)
-    const new_sneakers_basket = user.sneakers_basket.filter(item=>item.id!==p.id)
+    let new_sneakers_basket = user.sneakers_basket.filter(item=>item.id!==p.id)
+    if(!new_sneakers_basket.length){
+      new_sneakers_basket=null
+    }
     dispatch(setUser({sneakers_basket:new_sneakers_basket}))
     
   } catch (error) {

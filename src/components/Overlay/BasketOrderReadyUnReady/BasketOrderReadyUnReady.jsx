@@ -1,15 +1,19 @@
 import s from './BasketOrderReadyUnReady.module.sass'
 
-function BasketOrderReadyUnReady(p){
+const BasketOrderReadyUnReady=(p)=>{
+   const back=()=>{
+      p.setOrder_is_processed(state=>!state)
+      p.closebasket()
+   }
 return(
-   <div className={`${s.BasketOrderReadyUnRead}`}>
+   <div className={`${s.BasketOrderReadyUnReady}`}>
       <center><img src={p.img} alt="BasketOrderReadyUnReady"></img></center>
       <h2>{p.h2}</h2>
-      <div className={`${s.BasketOrderReadyUnReady-p}`}>
+      <div className={`${s.BasketOrderReadyUnReady_p}`}>
          <p>{p.p1}</p>
          <p>{p.p2}</p>
       </div>
-      {/* <button onClick={p.closebasket}><img src='./img/arrow-l.svg' alt='arrow'></img>Вернуться назад</button> */}
+      <div className={`button ${s.button}`}><button onClick={back}><img src='./img/arrow-l.svg' alt='arrow'></img>Вернуться назад</button></div>
    </div>
    )
 }

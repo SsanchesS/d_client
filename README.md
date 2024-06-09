@@ -10,8 +10,4 @@ npm start
 // npm install sass
 // npm install react-router-dom
 
-- itemsPrice Убрать orderNum Поставить
-
 - Добавить в типах | null ?
-
-- overlaySwitch не должен быть в бд

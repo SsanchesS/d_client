@@ -4,7 +4,10 @@ import Order from './Order/Order';
 import s from './SneakerOrders.module.sass'
 import { useAppSelector} from '../../hooks/hooks';
 
-function SneakerOrders() {
+interface proops{
+   setMessageError:void
+}
+function SneakerOrders(p:proops) {
    const user = useAppSelector(state=>state.UserReducer)
 
 return (
@@ -18,11 +21,13 @@ return (
             return (
                <Order 
                   key={obj.id}
+                  id={obj.id}
                   order_date={obj.order_date}
                   sum={obj.sum}
                   status={obj.status}
-                  delivery_method_id={obj.delivery_method}
-                  payment_method_id={obj.payment_method}
+                  delivery_method_id={obj.delivery_method_id}
+                  payment_method_id={obj.payment_method_id}
+                  setMessageError={p.setMessageError}
                />
             )
          })

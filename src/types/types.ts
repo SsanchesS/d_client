@@ -1,3 +1,13 @@
+export interface IMethod{
+   delivery_methods:{
+      id: number,
+      method_des: string
+   }[],
+   payment_methods:{
+      id: number,
+      method_des: string
+   }[]
+}
 export interface ISneaker{
    id: number,
    img: string // file
@@ -6,7 +16,8 @@ export interface ISneaker{
 }
 export interface ISneakersState{
    sneakers: ISneaker[] | null,
-   overlaySwitch: boolean
+   overlaySwitch: boolean,
+   methods: IMethod | null,
 }
 export interface IOrder{
    id: number,
@@ -14,8 +25,8 @@ export interface IOrder{
    order_date: Date,   // мб проблемы
    sum: number,
    status: string,
-   delivery_method: string,
-   payment_method: string,
+   delivery_method_id: string,
+   payment_method_id: string,
 }
 export interface IUser{
    id: number,
@@ -25,9 +36,12 @@ export interface IUser{
    password?: string | null,
    role_id: number | null,
 
-   itemsPrice: number | null,
    sneakers_basket: ISneaker[] | null,
    sneakers_orders: IOrder[] | null
+}
+export interface IMethods{
+   delivery_methods: IMethod[],
+   payment_methods: IMethod[]
 }
 export interface Iresponse{
    code: number,
@@ -36,5 +50,6 @@ export interface Iresponse{
    orders?: IOrder[] | null,
    order?: IOrder | null,
    sneakers?: ISneaker[] | null,
+   methods?: IMethods | null,
 // ....
 }
