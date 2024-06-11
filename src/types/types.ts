@@ -27,6 +27,7 @@ export interface IOrder{
    status: string,
    delivery_method_id: string,
    payment_method_id: string,
+   sneakers: Array<number>
 }
 export interface IUser{
    id: number,

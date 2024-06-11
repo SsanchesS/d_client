@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Link} from 'react-router-dom'
 import Order from './Order/Order';
 import s from './SneakerOrders.module.sass'
@@ -7,13 +7,12 @@ import { useAppSelector} from '../../hooks/hooks';
 interface proops{
    setMessageError:void
 }
-function SneakerOrders(p:proops) {
+const SneakerOrders=(p:proops) =>{
    const user = useAppSelector(state=>state.UserReducer)
-
 return (
 <>
 {
-   user.sneakers_orders ?
+   user.sneakers_orders?.length ?
    <div className={`${s.sneakers_wrap_main}`}>
       <div className={`${s.sneakers_header}`}><h1>{"Мои заказы"}</h1></div>
       <div className={`${s.sneakers_wrap}`}>{
@@ -27,6 +26,7 @@ return (
                   status={obj.status}
                   delivery_method_id={obj.delivery_method_id}
                   payment_method_id={obj.payment_method_id}
+                  sneakers={obj.sneakers}
                   setMessageError={p.setMessageError}
                />
             )

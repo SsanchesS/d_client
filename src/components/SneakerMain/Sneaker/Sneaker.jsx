@@ -72,7 +72,7 @@ const del_sneaker =async()=>{
 return (
   <div className={`${s.sneakers_card}`} onClick={user.sneakers_basket?.some(i=>i.id===p.id) ? del_sneaker:add_sneaker}>
     <div className={`${s.sneakers_bg}`}><img src={p.img} alt="sneaker"></img></div>
-    <div className={`${s.des}`}><p>{p.des}</p></div>
+    <div className={`${s.des}`}><p><b>{p.id}</b>&nbsp;{p.des}</p></div>
     <div className={`${s.price_wrap}`}>
       <div className={`${s.price}`}>
         <p>Цена:</p>

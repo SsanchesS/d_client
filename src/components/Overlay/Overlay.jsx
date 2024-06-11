@@ -23,20 +23,19 @@ const Overlay=()=>{
 
    const {data,isLoading,error} = userApi.useGetMethodsQuery() // запрос делается сразу же is bed
    useEffect(()=>{
-      if(user.sneakers_basket?.length){
-         if(error){
-            setMessageError(`${error.status}: ${error.data?.detail[0].type}: ${error.data?.detail[0].msg}`)
-         }else if(data?.code >= 400){
-            setMessageError(`${data?.code}: ${data?.message}`)
-         }else if (data?.methods) {
-            setMessageError(data.message)
-            dispatch(setMethods(data.methods))
-         }
-      }      
-   },[data, error, dispatch,user])   
+      if(error){
+         setMessageError(`${error.status}: ${error.data?.detail[0].type}: ${error.data?.detail[0].msg}`)
+      }else if(data?.code >= 400){
+         setMessageError(`${data?.code}: ${data?.message}`)
+      }else if (data?.methods) {
+         setMessageError(data.message)
+         dispatch(setMethods(data.methods))
+      }     
+   },[data, error, dispatch])   
 
    const [Order_is_processed,setOrder_is_processed] = useState(false)
    const [createOrder,{data:createOrder_data,isLoading:createOrder_isLoading,error:createOrder_error}] = userApi.useCreateOrderMutation()
+   const [UpdUser,{data:UpdUser_data,isLoading:UpdUser_isLoading,error:UpdUser_error}] = userApi.useUpdUserMutation()
 
    const placeOrder=async()=>{
       if(!user.id){
@@ -45,14 +44,15 @@ const Overlay=()=>{
          try {
             const sum = user.sneakers_basket.reduce((acc,i)=>acc+i.price,0)
             const date = new Date().toISOString().split('T')[0];
+            const sneakers = user.sneakers_basket.map(el=>el.id)
             const data={
                user_id: user.id,
                order_date: date,
                sum: sum,
                delivery_method_id: delivery_method_id,
                payment_method_id: payment_method_id,
+               sneakers: JSON.stringify(sneakers)
             }
-            console.log(data)
             const onfulfilled = await createOrder(data)
             if(onfulfilled.error){
               setMessageError(`${onfulfilled.error.status}: ${onfulfilled.error.data.detail[0].type}: ${onfulfilled.error.data.detail[0].msg}`)
@@ -61,12 +61,30 @@ const Overlay=()=>{
               setMessageError(`${onfulfilled.data.code}: ${onfulfilled.data.message}`)
               return
             }
-            setMessageError(onfulfilled.data.message)
-      
-            // const data = parseData(onfulfilled.data.user)
+            setMessageError(onfulfilled.data.message)      
+            // const data = parseData(onfulfilled.data.order)
             const response = onfulfilled.data.order
-            dispatch(setUser({sneakers_orders:[...user.sneakers_orders,{id:response.id, user_id:response.user_id, order_date:response.order_date, sum:response.sum, status:response.status, delivery_method_id:response.delivery_method_id, payment_method_id:response.payment_method_id}]}))
-            setOrder_is_processed(state=>!state)
+
+            // Обновляем корзину            
+            const onfulfilled_user = await UpdUser({id:user.id,user:{sneakers_basket: JSON.stringify([])}})
+            if(onfulfilled_user.error){
+              setMessageError(`${onfulfilled_user.error.status}: ${onfulfilled_user.error.data.detail[0].type}: ${onfulfilled_user.error.data.detail[0].msg}`)
+              return
+            }else if(onfulfilled_user.data.code >= 400){
+              setMessageError(`${onfulfilled_user.data.code}: ${onfulfilled_user.data.message}`)
+              return
+            }
+            setMessageError(onfulfilled_user.data.message)      
+            // const data = parseData(onfulfilled_user.data.user)
+            const response_user = onfulfilled_user.data.user
+
+            const sneakers_orders = user?.sneakers_orders ? 
+               [...user?.sneakers_orders,{id:response.id, user_id:response.user_id, order_date:response.order_date, sum:response.sum, status:response.status, delivery_method_id:response.delivery_method_id, payment_method_id:response.payment_method_id, sneakers:response.sneakers}]
+            :
+               [{id:response.id, user_id:response.user_id, order_date:response.order_date, sum:response.sum, status:response.status, delivery_method_id:response.delivery_method_id, payment_method_id:response.payment_method_id, sneakers:response.sneakers}]
+            
+            dispatch(setUser({sneakers_basket:[],sneakers_orders:sneakers_orders}))
+            setOrder_is_processed(true)
          } catch (error) {
             setMessageError("Ошибка")
             console.log(error)
@@ -98,8 +116,17 @@ return(
                      {state.methods?.payment_methods.map(el=><option key={el.id} value={el.id}>{el.method_des}</option>)}           
                   </select>
                </div>
-               <BasketOrder setOrder_is_processed={setOrder_is_processed} Order_is_processed={Order_is_processed} placeOrder={placeOrder} sneakers_basket={user.sneakers_basket} closebasket={closebasket} setMessageError={setMessageError}/>
+               <BasketOrder placeOrder={placeOrder} sneakers_basket={user.sneakers_basket} closebasket={closebasket} setMessageError={setMessageError}/>
             </>   
+         :
+         Order_is_processed ?
+         <BasketOrderReadyUnReady
+            img="img/Ready.svg"
+            h2="Заказ оформлен!"
+            p1= {`Ваш заказ #${user.sneakers_orders[user.sneakers_orders.length - 1].id} скоро будет передан`}
+            p2="курьерской доставке"   
+            closebasket={closebasket}
+         />
          :
          <BasketOrderReadyUnReady
             img="img/UnReady.svg"
@@ -107,7 +134,6 @@ return(
             p1="Добавьте хотя бы одну пару"
             p2="кроссовок, чтобы сделать заказ."
             closebasket={closebasket}
-            setOrder_is_processed={setOrder_is_processed}
          />         
          }                    
       </div>

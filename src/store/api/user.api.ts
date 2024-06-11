@@ -59,8 +59,8 @@ export const userApi = api.injectEndpoints({
          }),
          providesTags: result => ["Orders"]
       }),
-      createOrder: build.mutation<Iresponse,IOrderData>({
-         query: (OrderData:IOrderData)=>({
+      createOrder: build.mutation<Iresponse,IOrder>({
+         query: (OrderData:IOrder)=>({
             url: "/users/orders",
             method: "POST",
             body: OrderData

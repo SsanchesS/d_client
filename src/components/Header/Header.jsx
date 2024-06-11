@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hooks"
 import s from './Header.module.sass'
 import {overlaySwitch} from "../../store/reducers/SneakersSlice"
 import { useState,useEffect } from 'react'
-function Header(){
+function Header(p){
    const navigate = useNavigate()
    const dispatch = useAppDispatch()
    const user = useAppSelector(state=>state.UserReducer)
@@ -34,13 +34,21 @@ return(
       </div>
    </div>
    <div className={`${s.header_right}`}>
-      <div className={`${s.right_left}`}>
-         <button className={`${s.basket}`} onClick={openbasket}></button>       
-         <p>{ItemsPrice} руб.</p>
-      </div>
+      {p.admin?
       <div className={`${s.right_right}`}>
          <Link className={`${s.user}`} to={`${user.id?"/User":"/auth"}`}></Link>
       </div>
+      :
+      <>
+         <div className={`${s.right_left}`}>
+            <button className={`${s.basket}`} onClick={openbasket}></button>       
+            <p>{ItemsPrice} руб.</p>
+         </div>
+         <div className={`${s.right_right}`}>
+            <Link className={`${s.user}`} to={`${user.id?"/User":"/auth"}`}></Link>
+         </div>
+      </>
+      }      
    </div>
 </div>
 )}

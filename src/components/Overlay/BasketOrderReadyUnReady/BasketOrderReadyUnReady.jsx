@@ -2,7 +2,6 @@ import s from './BasketOrderReadyUnReady.module.sass'
 
 const BasketOrderReadyUnReady=(p)=>{
    const back=()=>{
-      p.setOrder_is_processed(state=>!state)
       p.closebasket()
    }
 return(

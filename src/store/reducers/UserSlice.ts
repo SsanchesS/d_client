@@ -7,7 +7,7 @@ const initialState:IUser = {
    s_name: "",
    email: "",
    password: "",
-   role_id: 0,
+   role_id: 1,
 
    sneakers_basket: [], // кросы в корзине
    sneakers_orders: [] // заказаные кросы

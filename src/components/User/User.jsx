@@ -1,5 +1,6 @@
 import {useState,FC} from 'react'
 import s from "./User.module.sass"
+import { useNavigate } from 'react-router-dom'
 import { useAppDispatch,useAppSelector } from "../../hooks/hooks"
 import {userApi} from "../../store/api/user.api"
 import {setUser} from "../../store/reducers/UserSlice"
@@ -34,8 +35,15 @@ const User=(p)=>{
          console.log(error)
        }
    }
+   const navigate = useNavigate()
+   const logOut=()=>{
+      const user = {id: 1, f_name: "", s_name: "", email: "", password: "", role_id: 0, sneakers_basket: [],sneakers_orders: []}
+      dispatch(setUser(user))
+      navigate("/",{replace:true})
+   }
 return(
 <div className={`${s.User} mt10px`}>
+   <div className={`${s.button} mb10px`}><button onClick={logOut}>Выход</button></div>
    <div className={`${s.inputs_block}`}>
       <div className='mb10px mr10px'><h2 className='mr10px'>Имя: </h2><input type="text" placeholder='Имя' value={f_name} onChange={e=>setf_name(e.target.value)}/></div>
       <div className='mb10px mr10px'><h2 className='mr10px'>Фамилия: </h2><input type="text" placeholder='Фамилия' value={s_name} onChange={e=>sets_name(e.target.value)}/></div>

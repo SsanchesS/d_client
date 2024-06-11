@@ -65,6 +65,7 @@ return(
    <div className={`${s.flex}`}> <div className="text"><p>Дата заказа:</p> &nbsp; <h2>{p.order_date}</h2></div> <div className="button"><button onClick={deleteOrder}>Удалить</button></div></div>   
    <div className="mt10px"> <p>Сумма:</p> &nbsp; <h2>{p.sum}</h2> </div>
    <div className="mt10px"> <p>Статус:</p> &nbsp; <h2>{p.status}</h2> </div>
+   <div className="mt10px"> <p>id кроссовок:</p> &nbsp; <h2>{p.sneakers}</h2> </div>
 
    <div className={`inputs mt10px ${s.inputs}`}>
       <div className='mb10px'>

@@ -9,12 +9,21 @@ const UserPage=(p)=>{
   const [MessageError,setMessageError] = useState('')
 return (
   <div className={`${s.UserPage}`}>
-    <Overlay/>
-    <Header/>
-    <div className={`${MessageError ? '' : 'hide'} red`}><p className='mb10px'>{MessageError}</p></div>
-    <User setMessageError={setMessageError}/>
-    <SneakerOrders setMessageError={setMessageError}/>
+    {p.admin?
+      <>    
+        <Header admin={true}/>
+        <div className={`${MessageError ? '' : 'hide'} red`}><p className='mb10px'>{MessageError}</p></div>
+        <User setMessageError={setMessageError}/>
+      </>
+      :
+      <>
+        <Overlay/>
+        <Header/>
+        <div className={`${MessageError ? '' : 'hide'} red`}><p className='mb10px'>{MessageError}</p></div>
+        <User setMessageError={setMessageError}/>
+        <SneakerOrders setMessageError={setMessageError}/>
+      </>
+    }    
   </div>
-);
-}
+)}
 export default UserPage;
