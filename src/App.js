@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import {Routes,Route} from 'react-router-dom'
 import { useAppSelector } from "./hooks/hooks";
 
@@ -8,50 +8,42 @@ import NotFoundPage from "./Pages/NotFoundPage/NotFoundPage";
 import HomePage from './Pages/HomePage/HomePage';
 import UserPage from './Pages/UserPage/UserPage';
 import AdminPage from './Pages/AdminPage/AdminPage';
+import AdminUsers from './Pages/AdminPage/AdminUsers/AdminUsers';
+import AdminOrders from './Pages/AdminPage/AdminOrders/AdminOrders';
+import AdminSneakers from './Pages/AdminPage/AdminSneakers/AdminSneakers';
+import AdminCategories from './Pages/AdminPage/AdminCategories/AdminCategories';
+import AdminPromotions from './Pages/AdminPage/AdminPromotions/AdminPromotions';
+import AdminDelivery_methods from './Pages/AdminPage/AdminDelivery_methods/AdminDelivery_methods';
+import AdminPayment_methods from './Pages/AdminPage/AdminPayment_methods/AdminPayment_methods';
+import AdminRoles from './Pages/AdminPage/AdminRoles/AdminRoles';
 
 function App() {
-  // useEffect(() => {
-  //   const ws = new WebSocket("wss://swfnhkr9-3000.euw.devtunnels.ms:3000/ws");
-
-  //   ws.onopen = () => {
-  //     console.log("Connected to WebSocket server");
-  //   };
-
-  //   ws.onmessage = (event) => {
-  //     console.log("Received message:", event.data);
-  //   };
-
-  //   ws.onerror = (error) => {
-  //     console.error("WebSocket error:", error);
-  //   };
-
-  //   ws.onclose = () => {
-  //     console.log("WebSocket connection closed");
-  //   };
-  //   // Cleanup on component unmount
-  //   return () => {
-  //     ws.close();
-  //   };
-  // }, []);
-
   const user = useAppSelector(state=>state.UserReducer)
 return (
 <div className="App">
 { user.id ?
-    user.role_id === 1 ?
+    user.role_id === 2 ? // admin
+    <Routes>
+      <Route path ='/' element = {<AdminPage/>}/>
+      <Route path ='/User' element = {<UserPage admin={true}/>}/>
+      <Route path ='/AdminUsers' element = {<AdminUsers/>}/>
+      <Route path ='/AdminOrders' element = {<AdminOrders/>}/>
+      <Route path ='/AdminSneakers' element = {<AdminSneakers/>}/>
+      <Route path ='/AdminCategories' element = {<AdminCategories/>}/>
+      <Route path ='/AdminPromotions' element = {<AdminPromotions/>}/>
+      <Route path ='/AdminDelivery_methods' element = {<AdminDelivery_methods/>}/>
+      <Route path ='/AdminPayment_methods' element = {<AdminPayment_methods/>}/>
+      <Route path ='/AdminRoles' element = {<AdminRoles/>}/>
+      <Route path="/notFound" element={<NotFoundPage/>}/>
+      <Route path="*" element={<NotFoundPage/>}/>
+    </Routes>
+    : 
     <Routes>
       <Route path ='/' element = {<HomePage/>}/>
       <Route path ='/User' element = {<UserPage/>}/>
       <Route path="/notFound" element={<NotFoundPage/>}/>
       <Route path="*" element={<NotFoundPage/>}/>
-    </Routes>
-    :
-    <Routes>
-      <Route path ='/' element = {<AdminPage/>}/>
-      <Route path ='/User' element = {<UserPage admin={true}/>}/>
-      <Route path="/notFound" element={<NotFoundPage/>}/>
-      <Route path="*" element={<NotFoundPage/>}/>
-    </Routes>
+    </Routes>    
   :
   <Routes>
     <Route path ='/' element = {<HomePage/>}/>

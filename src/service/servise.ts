@@ -1,12 +1,11 @@
-import {IUser} from "../types/types"
+import { ISneaker } from "../types/types";
+export const get_sneakers_basket_full=(sneakers:ISneaker[],sneakers_basket:number[])=>sneakers.filter(obj=>sneakers_basket?.includes(obj.id))
 
-export const parseData=(user:IUser)=>{
-   if (typeof user.sneakers_basket === "string") {
-      try {
-         user.sneakers_basket = JSON.parse(user.sneakers_basket)
-      } catch (error) {
-         console.error("Error parsing sneakers_basket JSON:", error);
-      }      
-   }
-   return user 
+export const JSON_stringify=(data:Array<any>)=>{
+   try {
+      const data_parse = JSON.stringify(data)
+      return data_parse 
+   } catch (error:any) {
+      console.error("Error parsing JSON:", error);
+   }   
 }

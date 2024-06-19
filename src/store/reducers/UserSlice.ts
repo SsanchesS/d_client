@@ -7,10 +7,7 @@ const initialState:IUser = {
    s_name: "",
    email: "",
    password: "",
-   role_id: 1,
-
-   sneakers_basket: [], // кросы в корзине
-   sneakers_orders: [] // заказаные кросы
+   role_id: 1
 }
 const UserSlice = createSlice({
    name:"UserSlice",
@@ -26,7 +23,7 @@ const UserSlice = createSlice({
             ...state,
             ...action.payload,
          };
-      }
+      },
    }
 })
 export default UserSlice.reducer

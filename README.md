@@ -10,4 +10,10 @@ npm start
 // npm install sass
 // npm install react-router-dom
 
+Для себя:
+
 - Добавить в типах | null ?
+- useLazy - для неуправляемых get 
+- interface proops{
+   setMessageError:(message: string) => void;
+}

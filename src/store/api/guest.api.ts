@@ -9,7 +9,7 @@ export const guestApi = api.injectEndpoints({
    endpoints: build =>({
       registration: build.mutation<Iresponse,IRegistrationData>({
          query: (RegistrationData:IRegistrationData)=>({
-            url: "/registration", 
+            url: "/registration/", 
             method: "POST",
             body: RegistrationData
          }),
@@ -17,7 +17,7 @@ export const guestApi = api.injectEndpoints({
       }),
       auth: build.mutation<Iresponse,IAuthData>({
          query:(AuthData:IAuthData)=>({
-            url:"/auth",
+            url:"/auth/",
             method: "POST",
             body: AuthData
          }),

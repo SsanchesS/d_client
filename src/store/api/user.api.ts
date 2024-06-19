@@ -1,20 +1,16 @@
 import { IUser, Iresponse,IOrder } from "../../types/types";
 import { api } from "./api";
 
-// interface IUserData extends Pick<IUser,"f_name"|"s_name"|"email"|"password">{}
-
+type IUserWithoutId = Omit<IUser, 'id'>;
 interface IUserData{
    id: number,
-   user: IUser
+   user: IUserWithoutId
 }
+type IOrderWithoutId = Omit<IOrder, 'id' | 'sneakers'> & { sneakers?: string };
 interface IOrderData{
    id: number,
-   order: IOrder
+   order: IOrderWithoutId
 }
-// interface DeleteOrderParams {
-//    user_id: number,
-//    id: number
-// }
 
 export const userApi = api.injectEndpoints({
    endpoints: build =>({
@@ -59,9 +55,9 @@ export const userApi = api.injectEndpoints({
          }),
          providesTags: result => ["Orders"]
       }),
-      createOrder: build.mutation<Iresponse,IOrder>({
-         query: (OrderData:IOrder)=>({
-            url: "/users/orders",
+      createOrder: build.mutation<Iresponse,IOrderWithoutId>({
+         query: (OrderData:IOrderWithoutId)=>({
+            url: "/users/orders/",
             method: "POST",
             body: OrderData
          }),

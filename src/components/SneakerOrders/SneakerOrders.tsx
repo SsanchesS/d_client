@@ -1,32 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,FC } from 'react';
 import {Link} from 'react-router-dom'
 import Order from './Order/Order';
 import s from './SneakerOrders.module.sass'
-import { useAppSelector} from '../../hooks/hooks';
+import {useAppSelector} from "../../hooks/hooks"
+import { userApi } from '../../store/api/user.api';
 
 interface proops{
-   setMessageError:void
+   setMessageError:(message: string) => void
 }
-const SneakerOrders=(p:proops) =>{
+const SneakerOrders:FC<proops>=(p) =>{
    const user = useAppSelector(state=>state.UserReducer)
+   const {data,isLoading,error} = userApi.useGetOrdersQuery(user.id)
+   const error_any:any = error
+   useEffect(()=>{
+      if(error_any){
+         p.setMessageError(`${error_any.status}: ${error_any.data?.detail[0].type}: ${error_any.data?.detail[0].msg}`)
+      }else if(error_any?.code !== undefined && error_any?.code >= 400){
+         p.setMessageError(`${data?.code}: ${data?.message}`)
+      }else if (data?.methods) {
+         p.setMessageError(data.message)
+      }     
+   },[data, error])   
 return (
 <>
 {
-   user.sneakers_orders?.length ?
+   data?.orders?.length ?
    <div className={`${s.sneakers_wrap_main}`}>
       <div className={`${s.sneakers_header}`}><h1>{"Мои заказы"}</h1></div>
       <div className={`${s.sneakers_wrap}`}>{
-         user.sneakers_orders.map((obj,index) => {
+         data.orders.map((obj,index) => {
             return (
                <Order 
                   key={obj.id}
                   id={obj.id}
-                  order_date={obj.order_date}
-                  sum={obj.sum}
-                  status={obj.status}
-                  delivery_method_id={obj.delivery_method_id}
-                  payment_method_id={obj.payment_method_id}
-                  sneakers={obj.sneakers}
+                  order_date={obj.order_date!}
+                  sum={obj.sum!}
+                  status={obj.status!}
+                  delivery_method_id={obj.delivery_method_id!}
+                  payment_method_id={obj.payment_method_id!}
+                  sneakers={obj.sneakers!}
                   setMessageError={p.setMessageError}
                />
             )
