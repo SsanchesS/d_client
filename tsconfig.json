@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    // На какой стандарт JS компилировать (современный JS)
+    "target": "ESNext",
+    // Инициализация полей классов как в спецификации
+    "useDefineForClassFields": true,
+    // Какие библиотеки подключены для компилятора (DOM, итераторы, современный JS)
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    // Разрешать компиляцию JS файлов вместе с TS
+    "allowJs": false,
+    // Пропуск проверки типов в сторонних библиотеках
+    "skipLibCheck": true,
+    // Совместимость между CommonJS и ES-модулями
+    "esModuleInterop": true,
+    // Будет ругатся если типы испортируются не через import type
+    "verbatimModuleSyntax": true,
+    // Позволяет писать default import для модулей без default export
+    "allowSyntheticDefaultImports": true,
+    // Включить строгую проверку типов
+    "strict": true,
+    // Проверка одинакового написания имён файлов (Windows/Linux)
+    "forceConsistentCasingInFileNames": true,
+    // Система модулей для сборки
+    "module": "ESNext",
+    // Как искать модули (node-style)
+    "moduleResolution": "Node",
+    // Позволяет импортировать JSON файлы
+    "resolveJsonModule": true,
+    // Каждое TS/TSX нужно компилировать отдельно (для совместимости с Vite)
+    "isolatedModules": true,
+    // Не создавать JS файлы при компиляции (Vite сам это делает)
+    "noEmit": true,
+    // Как обрабатывать JSX
+    "jsx": "react-jsx"
+  },
+  // Какие папки компилировать
+  "include": ["src"]
+}
