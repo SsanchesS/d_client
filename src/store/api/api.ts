@@ -5,9 +5,10 @@ export const api = createApi({
    tagTypes: ["User","Orders","Sneakers","Methods"],
    baseQuery: fetchBaseQuery({
       // baseUrl:"http://127.0.0.1:8000" 
-      baseUrl:"https://d-server-wehr.onrender.com/"
+      baseUrl:"https://d-server-wehr.onrender.com"
    }),
    endpoints:build=>({
 
    })
+
 })
